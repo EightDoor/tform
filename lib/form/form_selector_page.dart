@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class TFormSelectorPage extends StatelessWidget {
   TFormSelectorPage(
-      {Key key, this.options, this.isMultipleSelector, this.title})
+      {Key? key,
+      required this.options,
+      required this.isMultipleSelector,
+      required this.title})
       : super(key: key);
 
   final String title;
@@ -48,7 +51,11 @@ class TFormSelectorPage extends StatelessWidget {
 }
 
 class LTListTitle extends StatefulWidget {
-  LTListTitle({Key key, this.model, this.isMultipleSelector, this.options})
+  LTListTitle(
+      {Key? key,
+      required this.model,
+      required this.isMultipleSelector,
+      required this.options})
       : super(key: key);
   final TFormOptionModel model;
   final bool isMultipleSelector;
@@ -83,9 +90,9 @@ class _LTListTitleState extends State<LTListTitle> {
 }
 
 class TFormOptionModel {
-  final int index;
+  final int? index;
   final String value;
   bool selected;
 
-  TFormOptionModel({this.value, this.selected = false, this.index});
+  TFormOptionModel({required this.value, this.selected = false, this.index});
 }

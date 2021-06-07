@@ -5,7 +5,7 @@ import 'form_field.dart';
 import 'form_row.dart';
 
 class TFormCell extends StatefulWidget {
-  TFormCell({Key key, this.row}) : super(key: key);
+  TFormCell({Key? key, required this.row}) : super(key: key);
 
   final TFormRow row;
 
@@ -19,7 +19,7 @@ class _TFormCellState extends State<TFormCell> {
   @override
   Widget build(BuildContext context) {
     // cell
-    Widget widget;
+    Widget widget = Container();
     if (row.widget != null) {
       widget = row.widget;
     } else if (row.widgetBuilder != null) {
@@ -37,9 +37,10 @@ class _TFormCellState extends State<TFormCell> {
         ? TweenAnimationBuilder(
             child: widget,
             duration: Duration(milliseconds: 500),
-            builder: (BuildContext context, value, Widget child) {
+            builder: (BuildContext context, value, Widget? child) {
               return Opacity(
-                opacity: value,
+                // TODO 待更改opacity
+                opacity: 1,
                 child: child,
               );
             },

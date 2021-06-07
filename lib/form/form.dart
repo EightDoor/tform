@@ -12,31 +12,31 @@ class TForm extends StatefulWidget {
   final Divider divider;
 
   TForm({
-    Key key,
-    this.rows,
+    required Key key,
+    required this.rows,
     this.listType = TFormListType.column,
-    this.divider,
+    required this.divider,
   }) : super(key: key);
 
   TForm.sliver({
-    Key key,
-    this.rows,
+    required Key key,
+    required this.rows,
     this.listType = TFormListType.sliver,
-    this.divider,
+    required this.divider,
   }) : super(key: key);
 
   TForm.builder({
-    Key key,
-    this.rows,
+    required Key key,
+    required this.rows,
     this.listType = TFormListType.builder,
-    this.divider,
+    required this.divider,
   }) : super(key: key);
 
   /// 注意 of 方法获取的是 TFormState
   static TFormState of(BuildContext context) {
     final _TFormScope scope =
-        context.dependOnInheritedWidgetOfExactType<_TFormScope>();
-    return scope?.state;
+        context.dependOnInheritedWidgetOfExactType<_TFormScope>()!;
+    return scope.state;
   }
 
   @override
@@ -100,9 +100,9 @@ class TFormState extends State<TForm> {
 
 class _TFormScope extends InheritedWidget {
   const _TFormScope({
-    Key key,
-    Widget child,
-    this.state,
+    Key? key,
+    required Widget child,
+    required this.state,
   }) : super(key: key, child: child);
 
   final TFormState state;
@@ -113,14 +113,14 @@ class _TFormScope extends InheritedWidget {
 }
 
 class TFormList extends StatelessWidget {
-  const TFormList({Key key, this.type}) : super(key: key);
+  const TFormList({Key? key, required this.type}) : super(key: key);
 
   final TFormListType type;
 
   @override
   Widget build(BuildContext context) {
     final rows = TForm.of(context).rows;
-    Widget list;
+    Widget list = Container();
     switch (type) {
       case TFormListType.column:
         list = GestureDetector(

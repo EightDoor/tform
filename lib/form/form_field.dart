@@ -7,7 +7,7 @@ import 'form_selector_page.dart';
 class TFormField extends StatefulWidget {
   final TFormRow row;
 
-  TFormField({Key key, this.row}) : super(key: key);
+  TFormField({Key? key, required this.row}) : super(key: key);
 
   @override
   _TFormFieldState createState() => _TFormFieldState();
@@ -62,7 +62,7 @@ class _TFormFieldState extends State<TFormField> {
                 child: _buildCupertinoTextField(context),
               ),
               row.suffixWidget != null
-                  ? row.suffixWidget(context, row)
+                  ? row.suffixWidget!(context, row)
                   : SizedBox.shrink(),
             ],
           ),
@@ -93,7 +93,7 @@ class _TFormFieldState extends State<TFormField> {
       readOnly: _isSelector,
       onChanged: (value) {
         row.value = value;
-        if (row.onChanged != null) row.onChanged(row);
+        if (row.onChanged != null) row.onChanged!(row);
       },
       onTap: () async {
         if (_isSelector) {
@@ -101,16 +101,16 @@ class _TFormFieldState extends State<TFormField> {
           switch (widget.row.type) {
             case TFormRowTypeMultipleSelector:
             case TFormRowTypeSelector:
-              if (row.options == null || row.options.isEmpty) return;
+              if (row.options == null || row.options!.isEmpty) return;
               value = await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => TFormSelectorPage(
                     title: row.title,
-                    options: row.options
+                    options: row.options!
                             .every((element) => (element is TFormOptionModel))
-                        ? <TFormOptionModel>[...row.options]
-                        : row.options.map((e) {
+                        ? <TFormOptionModel>[...?row.options]
+                        : row.options!.map((e) {
                             return TFormOptionModel(value: e);
                           }).toList(),
                     isMultipleSelector:
@@ -121,7 +121,7 @@ class _TFormFieldState extends State<TFormField> {
               break;
             case TFormRowTypeCustomSelector:
               if (row.onTap == null) return;
-              value = await row.onTap(context, row);
+              value = await row.onTap!(context, row);
               break;
             default:
           }
@@ -130,7 +130,7 @@ class _TFormFieldState extends State<TFormField> {
               row.value = value;
             });
           }
-          if (row.onChanged != null) row.onChanged(row);
+          if (row.onChanged != null) row.onChanged!(row);
         }
       },
     );
@@ -160,15 +160,15 @@ class _TFormFieldState extends State<TFormField> {
     RegExp re = RegExp(r"\*+|[^\*]+");
     Iterable<Match> matches = re.allMatches(row.title);
     final children = matches.map((e) {
-      if (e[0].contains("*")) {
+      if (e[0]!.contains("*")) {
         return Text(
-          e[0],
+          e[0]!,
           style: _titleStyle.copyWith(
               color: _enabled ? Colors.red : _disableColor),
         );
       } else {
         return Text(
-          e[0],
+          e[0]!,
           style: !_enabled
               ? _titleStyle.copyWith(color: _disableColor)
               : _titleStyle,

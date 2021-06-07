@@ -12,76 +12,76 @@ abstract class TFormCloneable<T extends TFormCloneable<T>> {
 
 class TFormRow implements TFormCloneable<TFormRow> {
   /// 唯一标识
-  String tag;
+  String? tag;
 
   /// 类型
-  String type;
+  late String type;
 
   /// 是否必填
-  bool require;
+  late bool require;
 
   /// 必填项是否显示 * 号
-  bool requireStar;
+  late bool requireStar;
 
   /// 必填项校验不通过提示
-  String requireMsg;
+  String? requireMsg;
 
   /// 自定义校验规则
-  bool Function(TFormRow) validator;
+  late bool Function(TFormRow)? validator;
 
   /// 选择类型或者输入类型的值
-  String value;
+  late String value;
 
   /// 标题
-  String title;
+  late String title;
 
   /// 输入框占位
-  String placeholder;
+  late String placeholder;
 
   /// 是否能编辑
-  bool enabled;
+  late bool enabled;
 
   /// 输入框长度限制
-  int maxLength;
+  int? maxLength;
 
   /// 输入框内容是否加密
-  bool obscureText;
+  bool? obscureText;
 
   /// 键盘类型
-  TextInputType keyboardType;
+  late TextInputType? keyboardType;
 
   /// 清除按钮显示模式
-  OverlayVisibilityMode clearButtonMode;
+  late OverlayVisibilityMode clearButtonMode;
 
   /// 输入框文字对齐方式
-  TextAlign textAlign;
+  late TextAlign textAlign;
 
   /// 选择类型的选项，可以是纯字符串，也可以是 TFormOptionModel 对象
-  List options;
+  List? options;
 
   /// textfield 样式配置
-  TFormFieldConfig fieldConfig;
+  late TFormFieldConfig? fieldConfig;
 
   /// 输入事件
-  void Function(TFormRow) onChanged;
+  void Function(TFormRow)? onChanged;
 
   /// 点击事件
-  Future Function(BuildContext, TFormRow) onTap;
+  Future Function(BuildContext, TFormRow)? onTap;
 
   /// 自定义 Cell
-  Widget widget;
+  Widget? widget;
 
   /// 通过 builder 的方式自定义 suffixWidget
-  Widget Function(BuildContext, TFormRow) suffixWidget;
+  Widget Function(BuildContext, TFormRow)? suffixWidget;
 
   /// 通过 builder 的方式自定义 Cell
-  Widget Function(BuildContext, TFormRow) widgetBuilder;
+  Widget Function(BuildContext, TFormRow)? widgetBuilder;
 
   ///自定义 widget 对应的 state
-  var state;
+  late var state;
 
   /// 标记插入删除操作是否显示动画
-  bool animation;
+  late bool animation;
 
   TFormRow({
     this.tag,
@@ -251,13 +251,13 @@ class TFormFieldConfig {
   Color disableColor;
 
   TFormFieldConfig({
-    this.height,
-    this.padding,
-    this.titleStyle,
-    this.valueStyle,
-    this.placeholderStyle,
-    this.divider,
-    this.selectorIcon,
-    this.disableColor,
+    required this.height,
+    required this.padding,
+    required this.titleStyle,
+    required this.valueStyle,
+    required this.placeholderStyle,
+    required this.divider,
+    required this.selectorIcon,
+    required this.disableColor,
   });
 }
