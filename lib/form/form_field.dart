@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:zk_form_g/utils/event_bus.dart';
+import 'package:get/get.dart';
+import 'package:zk_form_g/getx/getx_submit_data.dart';
 
 import 'form_row.dart';
 import 'form_selector_page.dart';
@@ -16,7 +17,9 @@ class TFormField extends StatefulWidget {
 
 class _TFormFieldState extends State<TFormField> {
   final TextEditingController _controller = TextEditingController();
-
+  SubmitDataController _logc = Get.put(
+    SubmitDataController(),
+  );
   bool get _isSelector =>
       widget.row.type == TFormRowTypeSelector ||
       widget.row.type == TFormRowTypeMultipleSelector ||
@@ -46,7 +49,14 @@ class _TFormFieldState extends State<TFormField> {
 
   @override
   Widget build(BuildContext context) {
-    _controller.text = row.value;
+    var result = _logc.sourceData.value;
+    final index = result.indexWhere((e) => e.tag == row.tag);
+    if (index != -1) {
+      _controller.text = result[index].value;
+    } else {
+      _controller.text = row.value;
+    }
+
     return Column(
       children: [
         Container(
@@ -73,6 +83,11 @@ class _TFormFieldState extends State<TFormField> {
     );
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   CupertinoTextField _buildCupertinoTextField(BuildContext context) {
     return CupertinoTextField(
       suffix: _isSelector ? _selectorIcon : null,
@@ -94,6 +109,28 @@ class _TFormFieldState extends State<TFormField> {
       readOnly: _isSelector,
       onChanged: (value) {
         row.value = value;
+
+        // 替换对应数据集
+        if (row.tag != null) {
+          var list = _logc.list.value;
+          final int index = list.indexWhere(
+            (e) => e['tag'] == row.tag,
+          );
+          if (index != -1) {
+            list[index] = {
+              "tag": row.tag,
+              "value": value,
+            };
+          } else {
+            list.add({
+              "tag": row.tag,
+              "value": value,
+            });
+          }
+          _logc.setData(
+            list,
+          );
+        }
         if (row.onChanged != null) row.onChanged!(row);
       },
       onTap: () async {

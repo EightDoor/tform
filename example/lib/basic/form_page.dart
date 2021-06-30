@@ -2,14 +2,49 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:zk_form_g/tform.dart';
+import 'package:zk_form_g/models/data.dart';
 
 import '../utils.dart';
 import '../widgets/photos_cell.dart';
 import '../widgets/verifitionc_code_button.dart';
 
-class FormPage extends StatelessWidget {
+class FormPage extends StatefulWidget {
   FormPage({Key key}) : super(key: key);
+  @override
+  _FormPageState createState() => _FormPageState();
+}
+
+class _FormPageState extends State<FormPage> {
   final GlobalKey _formKey = GlobalKey<TFormState>();
+  List<Map<String, dynamic>> sourceList = [
+    {
+      "tag": "name",
+      "value": "周凯",
+    },
+    {
+      "tag": "card",
+      "value": "1528251994898989",
+    },
+    {
+      "tag": "phone1",
+      "value": "13904785187",
+    },
+    {
+      "tag": "yz",
+      "value": "8989",
+    },
+  ];
+  List<ZkFormData> list = [];
+  @override
+  void initState() {
+    sourceList.forEach((e) {
+      list.add(
+        ZkFormData.fromJson(e),
+      );
+    });
+    setState(() {});
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +65,11 @@ class FormPage extends StatelessWidget {
                 showToast(errors.first);
                 return;
               }
+              List<ZkFormData> list =
+                  (_formKey.currentState as TFormState).submitData();
+              list.forEach((e) {
+                print(e.toJson());
+              });
               //通过
               showToast("提交成功");
             },
@@ -38,6 +78,7 @@ class FormPage extends StatelessWidget {
       ),
       body: TForm.builder(
         key: _formKey,
+        sourceData: list,
         rows: buildFormRows(),
         divider: Divider(
           height: 1,
@@ -51,8 +92,8 @@ List<TFormRow> buildFormRows() {
   return [
     TFormRow.input(
       title: "姓名",
+      tag: "name",
       placeholder: "请输入姓名",
-      value: "呀哈哈",
       fieldConfig: TFormFieldConfig(
         height: 100,
         titleStyle: TextStyle(color: Colors.red, fontSize: 20),
@@ -61,19 +102,21 @@ List<TFormRow> buildFormRows() {
       ),
     ),
     TFormRow.input(
+      tag: "card",
       enabled: false,
       requireStar: true,
       title: "身份证号",
       placeholder: "请输入身份证号",
-      value: "4101041991892382938293",
     ),
     TFormRow.input(
+      tag: "phone1",
       keyboardType: TextInputType.number,
       title: "预留手机号",
       placeholder: "请输入手机号",
       maxLength: 11,
       requireMsg: "请输入正确的手机号",
       requireStar: true,
+      require: true,
       textAlign: TextAlign.right,
       validator: (row) {
         return RegExp(
@@ -82,6 +125,7 @@ List<TFormRow> buildFormRows() {
       },
     ),
     TFormRow.input(
+      tag: "yz",
       title: "验证码",
       placeholder: "请输入验证码",
       suffixWidget: (context, row) {
@@ -95,8 +139,8 @@ List<TFormRow> buildFormRows() {
       },
     ),
     TFormRow.input(
+      tag: "password",
       title: "* 密码",
-      value: "123456",
       obscureText: true,
       state: false,
       placeholder: "请输入密码",
@@ -116,6 +160,7 @@ List<TFormRow> buildFormRows() {
       },
     ),
     TFormRow.customSelector(
+      tag: "marriage",
       title: "婚姻状况",
       placeholder: "请选择",
       state: [

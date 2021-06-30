@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:zk_form_g/getx/getx_submit_data.dart';
+import 'package:zk_form_g/models/data.dart';
 
 import 'form_cell.dart';
 import 'form_row.dart';
@@ -10,12 +13,14 @@ class TForm extends StatefulWidget {
   final List<TFormRow> rows;
   final TFormListType listType;
   final Divider divider;
+  final List<ZkFormData>? sourceData;
 
   TForm({
     required Key key,
     required this.rows,
     this.listType = TFormListType.column,
     required this.divider,
+    this.sourceData,
   }) : super(key: key);
 
   TForm.sliver({
@@ -23,6 +28,7 @@ class TForm extends StatefulWidget {
     required this.rows,
     this.listType = TFormListType.sliver,
     required this.divider,
+    this.sourceData,
   }) : super(key: key);
 
   TForm.builder({
@@ -30,6 +36,7 @@ class TForm extends StatefulWidget {
     required this.rows,
     this.listType = TFormListType.builder,
     required this.divider,
+    this.sourceData,
   }) : super(key: key);
 
   /// 注意 of 方法获取的是 TFormState
@@ -44,11 +51,30 @@ class TForm extends StatefulWidget {
 }
 
 class TFormState extends State<TForm> {
+  SubmitDataController _logc = Get.put(
+    SubmitDataController(),
+  );
+
   List<TFormRow> rows;
+  List<Map<String, dynamic>> list = [];
   get form => widget;
   get divider => widget.divider;
 
   TFormState(this.rows);
+  @override
+  void initState() {
+    _logc.setSourceData(
+      widget.sourceData ?? [],
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _logc.setSourceData([]);
+    _logc.setData([]);
+    super.dispose();
+  }
 
   /// 表单插入，可以是单个 row，也可以使一组 rows
   void insert(currentRow, item) {
@@ -84,8 +110,39 @@ class TFormState extends State<TForm> {
   /// 验证表单
   List validate() {
     FocusScope.of(context).requestFocus(FocusNode());
-    List errors = formValidationErrors(rows);
+    List errors = formValidationErrors(rows, widget.sourceData ?? []);
     return errors;
+  }
+
+  /// 返回表单项值
+  List<ZkFormData> submitData() {
+    List<ZkFormData> result = [];
+    List<Map<String, dynamic>> data = _logc.list.value;
+    List<ZkFormData> sourceData = _logc.sourceData.value;
+    // 处理传入的原始值
+    sourceData.forEach((e) {
+      int index = data.indexWhere((v) => v['tag'] == e.tag);
+      if (index != -1) {
+        e.value = data[index]['value'];
+      }
+      result.add(
+        e,
+      );
+    });
+
+    // 找出新增的值
+    data.forEach((e) {
+      final int index = sourceData.indexWhere(
+        (v) => v.tag == e['tag'],
+      );
+      if (index == -1) {
+        result.add(
+          ZkFormData.fromJson(e),
+        );
+      }
+    });
+
+    return result;
   }
 
   @override
