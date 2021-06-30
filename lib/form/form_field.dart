@@ -53,6 +53,7 @@ class _TFormFieldState extends State<TFormField> {
     final index = result.indexWhere((e) => e.tag == row.tag);
     if (index != -1) {
       _controller.text = result[index].value;
+      row.value = result[index].value;
     } else {
       _controller.text = row.value;
     }
@@ -70,7 +71,9 @@ class _TFormFieldState extends State<TFormField> {
                 width: 5,
               ),
               Expanded(
-                child: _buildCupertinoTextField(context),
+                child: _buildCupertinoTextField(
+                  context,
+                ),
               ),
               row.suffixWidget != null
                   ? row.suffixWidget!(context, row)
@@ -86,6 +89,33 @@ class _TFormFieldState extends State<TFormField> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  // 处理数据源
+  void processingData(
+    String value,
+  ) {
+    // 替换对应数据集
+    if (row.tag != null) {
+      var list = _logc.list.value;
+      final int index = list.indexWhere(
+        (e) => e['tag'] == row.tag,
+      );
+      if (index != -1) {
+        list[index] = {
+          "tag": row.tag,
+          "value": value,
+        };
+      } else {
+        list.add({
+          "tag": row.tag,
+          "value": value,
+        });
+      }
+      _logc.setData(
+        list,
+      );
+    }
   }
 
   CupertinoTextField _buildCupertinoTextField(BuildContext context) {
@@ -109,28 +139,7 @@ class _TFormFieldState extends State<TFormField> {
       readOnly: _isSelector,
       onChanged: (value) {
         row.value = value;
-
-        // 替换对应数据集
-        if (row.tag != null) {
-          var list = _logc.list.value;
-          final int index = list.indexWhere(
-            (e) => e['tag'] == row.tag,
-          );
-          if (index != -1) {
-            list[index] = {
-              "tag": row.tag,
-              "value": value,
-            };
-          } else {
-            list.add({
-              "tag": row.tag,
-              "value": value,
-            });
-          }
-          _logc.setData(
-            list,
-          );
-        }
+        processingData(value);
         if (row.onChanged != null) row.onChanged!(row);
       },
       onTap: () async {
@@ -149,7 +158,10 @@ class _TFormFieldState extends State<TFormField> {
                             .every((element) => (element is TFormOptionModel))
                         ? <TFormOptionModel>[...?row.options]
                         : row.options!.map((e) {
-                            return TFormOptionModel(value: e);
+                            return TFormOptionModel(
+                              value: e,
+                              selected: row.value == e,
+                            );
                           }).toList(),
                     isMultipleSelector:
                         row.type == TFormRowTypeMultipleSelector,
@@ -164,6 +176,7 @@ class _TFormFieldState extends State<TFormField> {
             default:
           }
           if (value != null) {
+            processingData(value);
             setState(() {
               row.value = value;
             });

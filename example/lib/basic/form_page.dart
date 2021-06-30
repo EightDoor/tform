@@ -33,6 +33,10 @@ class _FormPageState extends State<FormPage> {
       "tag": "yz",
       "value": "8989",
     },
+    {
+      "tag": "education",
+      "value": "本科",
+    }
   ];
   List<ZkFormData> list = [];
   @override
@@ -185,13 +189,13 @@ List<TFormRow> buildFormRows() {
       },
     ),
     TFormRow.selector(
+      tag: 'education',
       title: "学历",
       placeholder: "请选择",
       options: [
-        TFormOptionModel(value: "专科"),
-        TFormOptionModel(value: "本科"),
-        TFormOptionModel(value: "硕士"),
-        TFormOptionModel(value: "博士")
+        '专科',
+        "本科",
+        "硕士",
       ],
     ),
     TFormRow.multipleSelector(
