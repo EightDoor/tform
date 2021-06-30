@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:zk_form_g/utils/event_bus.dart';
 
 import 'form_row.dart';
 import 'form_selector_page.dart';
@@ -24,9 +25,9 @@ class _TFormFieldState extends State<TFormField> {
   bool get _isInput => widget.row.type == TFormRowTypeInput;
 
   TFormRow get row => widget.row;
-  bool get _enabled => row.enabled ?? true;
-  bool get _require => row.require ?? false;
-  bool get _requireStar => row.requireStar ?? false;
+  bool get _enabled => row.enabled;
+  bool get _require => row.require;
+  bool get _requireStar => row.requireStar;
 
   TextStyle get _titleStyle {
     return row.fieldConfig?.titleStyle ??
@@ -78,12 +79,12 @@ class _TFormFieldState extends State<TFormField> {
       obscureText: row.obscureText ?? false,
       controller: _controller,
       clearButtonMode: _isInput && _enabled
-          ? row.clearButtonMode ?? OverlayVisibilityMode.never
+          ? row.clearButtonMode
           : OverlayVisibilityMode.never,
       enabled: _enabled,
       decoration: BoxDecoration(color: Colors.white),
-      textAlign: row.textAlign ?? TextAlign.left,
-      placeholder: row.placeholder ?? "",
+      textAlign: row.textAlign,
+      placeholder: row.placeholder,
       keyboardType: row.keyboardType,
       maxLength: row.maxLength,
       style:
@@ -139,7 +140,7 @@ class _TFormFieldState extends State<TFormField> {
   RichText _buildRichText() {
     return RichText(
         text: TextSpan(
-      text: row.title ?? "",
+      text: row.title,
       style:
           !_enabled ? _titleStyle.copyWith(color: _disableColor) : _titleStyle,
       children: [

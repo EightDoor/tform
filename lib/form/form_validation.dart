@@ -9,7 +9,7 @@ List formValidationErrors(List<TFormRow> rows) {
         errors.add(row.requireMsg ?? "${row.title.replaceAll("*", "")} 不能为空");
       }
     } else {
-      if (row.require ?? false) {
+      if (row.require) {
         if (row.value.length == 0) {
           errors.add(row.requireMsg ?? "${row.title.replaceAll("*", "")} 不能为空");
         }

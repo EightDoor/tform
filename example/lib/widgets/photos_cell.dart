@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tform/tform.dart';
 import 'package:tform_example/widgets/select_image.dart';
+import 'package:zk_form_g/tform.dart';
 
 class CustomPhotosWidget extends StatelessWidget {
   CustomPhotosWidget({

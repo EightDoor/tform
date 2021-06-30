@@ -1,7 +1,7 @@
-name: zkForm
+name: zk_form_g
 description: A easy, extensible and dynamic flutter form framework. Support for custom selectors, validators and widgets. Support form verification, insert, delete and so on.
-version: 1.0.1
-homepage: https://github.com/yichahucha/tform
+version: 1.0.2
+homepage: https://github.com/EightDoor/tform
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

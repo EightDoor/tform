@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 
-import 'package:tform/tform.dart';
+import 'package:zk_form_g/tform.dart';
 
 import '../widgets/next_button.dart';
 import '../widgets/photos_cell.dart';

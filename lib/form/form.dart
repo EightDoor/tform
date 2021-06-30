@@ -91,10 +91,11 @@ class TFormState extends State<TForm> {
   @override
   Widget build(BuildContext context) {
     return _TFormScope(
-        state: this,
-        child: TFormList(
-          type: widget.listType,
-        ));
+      state: this,
+      child: TFormList(
+        type: widget.listType,
+      ),
+    );
   }
 }
 

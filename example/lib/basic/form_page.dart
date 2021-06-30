@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:tform/tform.dart';
+import 'package:zk_form_g/tform.dart';
 
 import '../utils.dart';
 import '../widgets/photos_cell.dart';
@@ -177,27 +177,27 @@ List<TFormRow> buildFormRows() {
           alignment: Alignment.center,
           child: Text("------ 我是自定义的Cell ------")),
     ),
-    TFormRow.customCellBuilder(
-      title: "房屋照片",
-      state: [
-        {"picurl": ""},
-        {"picurl": ""},
-        {"picurl": ""},
-        {"picurl": ""},
-        {"picurl": ""},
-      ],
-      requireMsg: "请完成上传房屋照片",
-      validator: (row) {
-        bool suc = (row.state as List)
-            .every((element) => (element["picurl"].length > 0));
-        if (!suc) {
-          row.requireMsg = "请完成${row.title}上传";
-        }
-        return suc;
-      },
-      widgetBuilder: (context, row) {
-        return CustomPhotosWidget(row: row);
-      },
-    ),
+    // TFormRow.customCellBuilder(
+    //   title: "房屋照片",
+    //   state: [
+    //     {"picurl": ""},
+    //     {"picurl": ""},
+    //     {"picurl": ""},
+    //     {"picurl": ""},
+    //     {"picurl": ""},
+    //   ],
+    //   requireMsg: "请完成上传房屋照片",
+    //   validator: (row) {
+    //     bool suc = (row.state as List)
+    //         .every((element) => (element["picurl"].length > 0));
+    //     if (!suc) {
+    //       row.requireMsg = "请完成${row.title}上传";
+    //     }
+    //     return suc;
+    //   },
+    //   widgetBuilder: (context, row) {
+    //     return CustomPhotosWidget(row: row);
+    //   },
+    // ),
   ];
 }

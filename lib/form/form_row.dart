@@ -18,16 +18,16 @@ class TFormRow implements TFormCloneable<TFormRow> {
   late String type;
 
   /// 是否必填
-  late bool require;
+  bool require = false;
 
   /// 必填项是否显示 * 号
-  late bool requireStar;
+  bool requireStar = true;
 
   /// 必填项校验不通过提示
   String? requireMsg;
 
   /// 自定义校验规则
-  late bool Function(TFormRow)? validator;
+  bool Function(TFormRow)? validator;
 
   /// 选择类型或者输入类型的值
   late String value;
@@ -39,7 +39,7 @@ class TFormRow implements TFormCloneable<TFormRow> {
   late String placeholder;
 
   /// 是否能编辑
-  late bool enabled;
+  bool enabled = true;
 
   /// 输入框长度限制
   int? maxLength;
@@ -48,7 +48,7 @@ class TFormRow implements TFormCloneable<TFormRow> {
   bool? obscureText;
 
   /// 键盘类型
-  late TextInputType? keyboardType;
+  TextInputType? keyboardType = TextInputType.text;
 
   /// 清除按钮显示模式
   late OverlayVisibilityMode clearButtonMode;
@@ -81,7 +81,7 @@ class TFormRow implements TFormCloneable<TFormRow> {
   late var state;
 
   /// 标记插入删除操作是否显示动画
-  late bool animation;
+  late bool animation = false;
 
   TFormRow({
     this.tag,
@@ -93,7 +93,7 @@ class TFormRow implements TFormCloneable<TFormRow> {
     this.maxLength,
     this.title = "",
     this.value = "",
-    this.require = true,
+    this.require = false,
     this.requireStar = false,
     this.enabled = true,
     this.placeholder = "",
@@ -115,7 +115,7 @@ class TFormRow implements TFormCloneable<TFormRow> {
     this.title = "",
     this.value = "",
     this.placeholder = "请输入",
-    this.require = true,
+    this.require = false,
     this.requireStar = false,
     this.enabled = true,
     this.requireMsg,
@@ -139,7 +139,7 @@ class TFormRow implements TFormCloneable<TFormRow> {
     this.title = "",
     this.value = "",
     this.placeholder = "请选择",
-    this.require = true,
+    this.require = false,
     this.requireStar = false,
     this.enabled = true,
     this.requireMsg,
@@ -158,7 +158,7 @@ class TFormRow implements TFormCloneable<TFormRow> {
     this.title = "",
     this.value = "",
     this.placeholder = "请选择",
-    this.require = true,
+    this.require = false,
     this.requireStar = false,
     this.enabled = true,
     this.requireMsg,
@@ -178,7 +178,7 @@ class TFormRow implements TFormCloneable<TFormRow> {
     this.title = "",
     this.value = "",
     this.placeholder = "请选择",
-    this.require = true,
+    this.require = false,
     this.requireStar = false,
     this.enabled = true,
     this.requireMsg,
@@ -206,7 +206,7 @@ class TFormRow implements TFormCloneable<TFormRow> {
     this.state,
     this.title = "",
     this.widgetBuilder,
-    this.require = true,
+    this.require = false,
     this.requireMsg,
     this.validator,
   });
@@ -241,23 +241,23 @@ class TFormRow implements TFormCloneable<TFormRow> {
 }
 
 class TFormFieldConfig {
-  double height;
-  EdgeInsets padding;
-  TextStyle titleStyle;
-  TextStyle valueStyle;
-  TextStyle placeholderStyle;
-  Divider divider;
-  Widget selectorIcon;
-  Color disableColor;
+  double? height;
+  EdgeInsets? padding;
+  TextStyle? titleStyle;
+  TextStyle? valueStyle;
+  TextStyle? placeholderStyle;
+  Divider? divider;
+  Widget? selectorIcon;
+  Color? disableColor;
 
   TFormFieldConfig({
     required this.height,
-    required this.padding,
+    this.padding,
     required this.titleStyle,
     required this.valueStyle,
     required this.placeholderStyle,
-    required this.divider,
-    required this.selectorIcon,
-    required this.disableColor,
+    this.divider,
+    this.selectorIcon,
+    this.disableColor,
   });
 }
