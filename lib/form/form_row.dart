@@ -5,6 +5,7 @@ const TFormRowTypeInput = "TFormRowTypeInput";
 const TFormRowTypeCustomSelector = "TFormRowTypeCustomSelector";
 const TFormRowTypeSelector = "TFormRowTypeSelector";
 const TFormRowTypeMultipleSelector = "TFormRowTypeMultipleSelector";
+const TFormRowTypeTimeSelect = 'TFormRowTypeTimeSelect';
 
 abstract class TFormCloneable<T extends TFormCloneable<T>> {
   T clone();
@@ -169,6 +170,25 @@ class TFormRow implements TFormCloneable<TFormRow> {
     this.textAlign = TextAlign.right,
   }) {
     this.type = TFormRowTypeMultipleSelector;
+  }
+
+  /// 时间选择
+  TFormRow.timeSelect({
+    this.tag,
+    this.title = "",
+    this.value = "",
+    this.placeholder = "请选择",
+    this.require = false,
+    this.requireStar = false,
+    this.enabled = true,
+    this.requireMsg,
+    this.options,
+    this.validator,
+    this.fieldConfig,
+    this.suffixWidget,
+    this.textAlign = TextAlign.right,
+  }) {
+    this.type = TFormRowTypeTimeSelect;
   }
 
   /// 自定义选择器，配合 state 定义自己的数据 onTap 点击事件

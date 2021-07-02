@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   get: ^4.1.4
+  # 选择器
+  flutter_pickers: ^2.1.1
 
 dev_dependencies:
   flutter_test:

@@ -5,7 +5,7 @@ import 'application.dart';
 import 'dynamic/form_dynamic_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp(),);
 }
 
 class MyApp extends StatelessWidget {

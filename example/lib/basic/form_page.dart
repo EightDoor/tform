@@ -208,6 +208,11 @@ List<TFormRow> buildFormRows() {
         TFormOptionModel(value: "女儿", selected: false)
       ],
     ),
+    TFormRow.timeSelect(
+      title: "开始时间",
+      placeholder: "请选择",
+      tag: "startTime",
+    ),
     TFormRow.customSelector(
       title: "出生年月",
       placeholder: "请选择",

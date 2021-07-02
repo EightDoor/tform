@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zk_form_g/getx/getx_submit_data.dart';
+import 'package:zk_form_g/utils/show_picker_utils.dart';
 
 import 'form_row.dart';
 import 'form_selector_page.dart';
@@ -23,7 +24,8 @@ class _TFormFieldState extends State<TFormField> {
   bool get _isSelector =>
       widget.row.type == TFormRowTypeSelector ||
       widget.row.type == TFormRowTypeMultipleSelector ||
-      widget.row.type == TFormRowTypeCustomSelector;
+      widget.row.type == TFormRowTypeCustomSelector ||
+      widget.row.type == TFormRowTypeTimeSelect;
 
   bool get _isInput => widget.row.type == TFormRowTypeInput;
 
@@ -173,18 +175,33 @@ class _TFormFieldState extends State<TFormField> {
               if (row.onTap == null) return;
               value = await row.onTap!(context, row);
               break;
+            case TFormRowTypeTimeSelect:
+              ShowPickerUtils.showTimePicker(
+                context: context,
+                callBackItem: (val) {
+                  value = val;
+                  referData(value);
+                },
+              );
+              break;
             default:
           }
-          if (value != null) {
-            processingData(value);
-            setState(() {
-              row.value = value;
-            });
-          }
-          if (row.onChanged != null) row.onChanged!(row);
+          referData(value);
         }
       },
     );
+  }
+
+  void referData(
+    String value,
+  ) {
+    if (value != null) {
+      processingData(value);
+      setState(() {
+        row.value = value;
+      });
+    }
+    if (row.onChanged != null) row.onChanged!(row);
   }
 
   RichText _buildRichText() {
