@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:zk_form_g/tform.dart';
 import 'package:zk_form_g/models/data.dart';
+import 'package:flutter_pickers/time_picker/model/date_mode.dart';
 
 import '../utils.dart';
 import '../widgets/photos_cell.dart';
@@ -211,6 +212,7 @@ List<TFormRow> buildFormRows() {
       title: "开始时间",
       placeholder: "请选择",
       tag: "startTime",
+      mode: DateMode.YMDHMS,
     ),
     TFormRow.customSelector(
       title: "出生年月",

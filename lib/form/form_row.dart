@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pickers/time_picker/model/date_mode.dart';
 
 const TFormRowTypeInput = "TFormRowTypeInput";
 const TFormRowTypeCustomSelector = "TFormRowTypeCustomSelector";
@@ -87,6 +88,9 @@ class TFormRow implements TFormCloneable<TFormRow> {
   /// 输入的最大行数
   int? maxLines = 1;
 
+  /// 时间选择类型
+  DateMode? mode;
+
   TFormRow({
     this.tag,
     this.type = TFormRowTypeInput,
@@ -112,6 +116,7 @@ class TFormRow implements TFormCloneable<TFormRow> {
     this.obscureText,
     this.textAlign = TextAlign.right,
     this.maxLines,
+    this.mode,
   });
 
   /// 输入
@@ -192,6 +197,7 @@ class TFormRow implements TFormCloneable<TFormRow> {
     this.fieldConfig,
     this.suffixWidget,
     this.textAlign = TextAlign.right,
+    this.mode,
   }) {
     this.type = TFormRowTypeTimeSelect;
   }
