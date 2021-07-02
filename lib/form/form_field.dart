@@ -131,6 +131,7 @@ class _TFormFieldState extends State<TFormField> {
       enabled: _enabled,
       decoration: BoxDecoration(color: Colors.white),
       textAlign: row.textAlign,
+      maxLines: row.maxLines ?? 1,
       placeholder: row.placeholder,
       keyboardType: row.keyboardType,
       maxLength: row.maxLength,

@@ -84,6 +84,9 @@ class TFormRow implements TFormCloneable<TFormRow> {
   /// 标记插入删除操作是否显示动画
   late bool animation = false;
 
+  /// 输入的最大行数
+  int? maxLines = 1;
+
   TFormRow({
     this.tag,
     this.type = TFormRowTypeInput,
@@ -108,6 +111,7 @@ class TFormRow implements TFormCloneable<TFormRow> {
     this.clearButtonMode = OverlayVisibilityMode.editing,
     this.obscureText,
     this.textAlign = TextAlign.right,
+    this.maxLines,
   });
 
   /// 输入
@@ -130,6 +134,7 @@ class TFormRow implements TFormCloneable<TFormRow> {
     this.obscureText,
     this.state,
     this.textAlign = TextAlign.left,
+    this.maxLines,
   }) {
     this.type = TFormRowTypeInput;
   }

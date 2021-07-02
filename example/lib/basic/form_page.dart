@@ -117,7 +117,6 @@ List<TFormRow> buildFormRows() {
       keyboardType: TextInputType.number,
       title: "预留手机号",
       placeholder: "请输入手机号",
-      maxLength: 11,
       requireMsg: "请输入正确的手机号",
       requireStar: true,
       require: true,
