@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:zk_form_g/tform.dart';
-import 'package:zk_form_g/models/data.dart';
 import 'package:flutter_pickers/time_picker/model/date_mode.dart';
+import 'package:zk_form_g/models/data.dart';
+import 'package:zk_form_g/tform.dart';
 
 import '../utils.dart';
-import '../widgets/photos_cell.dart';
 import '../widgets/verifitionc_code_button.dart';
 
 class FormPage extends StatefulWidget {
@@ -17,6 +15,7 @@ class FormPage extends StatefulWidget {
 
 class _FormPageState extends State<FormPage> {
   final GlobalKey _formKey = GlobalKey<TFormState>();
+  final String test = "测试文本";
   List<Map<String, dynamic>> sourceList = [
     {
       "tag": "name",
@@ -84,7 +83,7 @@ class _FormPageState extends State<FormPage> {
       body: TForm.builder(
         key: _formKey,
         sourceData: list,
-        rows: buildFormRows(),
+        rows: buildFormRows(test),
         divider: Divider(
           height: 1,
         ),
@@ -93,7 +92,7 @@ class _FormPageState extends State<FormPage> {
   }
 }
 
-List<TFormRow> buildFormRows() {
+List<TFormRow> buildFormRows(String test) {
   return [
     TFormRow.input(
       title: "姓名",
@@ -232,6 +231,13 @@ List<TFormRow> buildFormRows() {
           alignment: Alignment.center,
           child: Text("------ 我是自定义的Cell ------")),
     ),
+    TFormRow.customCell(
+      widget: Container(
+        child: Text(
+          test,
+        ),
+      ),
+    )
     // TFormRow.customCellBuilder(
     //   title: "房屋照片",
     //   state: [
