@@ -128,6 +128,11 @@ List<TFormRow> buildFormRows(String test) {
       },
     ),
     TFormRow.input(
+      title: "多行文本",
+      tag: 'more',
+      maxLines: 20,
+    ),
+    TFormRow.input(
       tag: "yz",
       title: "验证码",
       placeholder: "请输入验证码",

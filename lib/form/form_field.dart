@@ -66,25 +66,56 @@ class _TFormFieldState extends State<TFormField> {
         Container(
           padding: row.fieldConfig?.padding ??
               const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          height: row.fieldConfig?.height ?? 58.0,
-          child: Row(
-            children: [
-              row.title.contains("*") ? _buildTitleText() : _buildRichText(),
-              SizedBox(
-                width: 5,
-              ),
-              Expanded(
-                child: _buildCupertinoTextField(
-                  context,
-                ),
-              ),
-              row.suffixWidget != null
-                  ? row.suffixWidget!(context, row)
-                  : SizedBox.shrink(),
-            ],
-          ),
+          height: row.fieldConfig != null && row.fieldConfig!.height != null
+              ? row.fieldConfig!.height
+              : row.maxLines != null && row.maxLines! > 1
+                  ? 120
+                  : 58.0,
+          child: row.maxLines != null && row.maxLines! > 1
+              ? _itemInputArea()
+              : _itemInput(),
         ),
         row.fieldConfig?.divider ?? SizedBox.shrink()
+      ],
+    );
+  }
+
+  List<Widget> _label() {
+    return [
+      row.title.contains("*") ? _buildTitleText() : _buildRichText(),
+      SizedBox(
+        width: 5,
+      )
+    ];
+  }
+
+  Widget _content() {
+    return Expanded(
+      child: _buildCupertinoTextField(
+        context,
+      ),
+    );
+  }
+
+  Widget _itemInputArea() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ..._label(),
+        _content(),
+      ],
+    );
+  }
+
+  Widget _itemInput() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        ..._label(),
+        _content(),
+        row.suffixWidget != null
+            ? row.suffixWidget!(context, row)
+            : SizedBox.shrink(),
       ],
     );
   }
