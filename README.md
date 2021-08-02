@@ -8,7 +8,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  tform: ^1.2.0
+  zk_form_g: ^1.2.0
 ```
 
 ## Example
