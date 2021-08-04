@@ -81,7 +81,9 @@ class _LTListTitleState extends State<LTListTitle> {
         }
       },
       selected: widget.model.selected,
-      title: Text(widget.model.value),
+      title: Text(
+        widget.model.label ?? widget.model.value,
+      ),
       trailing: widget.isMultipleSelector && widget.model.selected
           ? Icon(Icons.done)
           : SizedBox.shrink(),
@@ -92,7 +94,9 @@ class _LTListTitleState extends State<LTListTitle> {
 class TFormOptionModel {
   final int? index;
   final String value;
+  final String? label;
   bool selected;
 
-  TFormOptionModel({required this.value, this.selected = false, this.index});
+  TFormOptionModel(
+      {required this.value, this.label, this.selected = false, this.index});
 }

@@ -36,6 +36,10 @@ class _FormPageState extends State<FormPage> {
     {
       "tag": "education",
       "value": "本科",
+    },
+    {
+      "tag": "selectStr",
+      "value": "1",
     }
   ];
   List<ZkFormData> list = [];
@@ -200,6 +204,15 @@ List<TFormRow> buildFormRows(String test) {
         '专科',
         "本科",
         "硕士",
+      ],
+    ),
+    TFormRow.selector(
+      tag: 'selectStr',
+      title: "选择项为 value label",
+      placeholder: "请选择",
+      options: [
+        {"value": "1", "label": "本科"},
+        {"value": "2", "label": "专科"},
       ],
     ),
     TFormRow.multipleSelector(

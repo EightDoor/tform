@@ -39,7 +39,6 @@ class _TFormCellState extends State<TFormCell> {
             duration: Duration(milliseconds: 500),
             builder: (BuildContext context, value, Widget? child) {
               return Opacity(
-                // TODO 待更改opacity
                 opacity: 1,
                 child: child,
               );

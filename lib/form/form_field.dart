@@ -29,7 +29,6 @@ class _TFormFieldState extends State<TFormField> {
       widget.row.type == TFormRowTypeTimeSelect;
 
   bool get _isInput => widget.row.type == TFormRowTypeInput;
-
   TFormRow get row => widget.row;
   bool get _enabled => row.enabled;
   bool get _require => row.require;
@@ -55,7 +54,12 @@ class _TFormFieldState extends State<TFormField> {
     var result = _logc.sourceData.value;
     final index = result.indexWhere((e) => e.tag == row.tag);
     if (index != -1) {
-      _controller.text = result[index].value;
+      String sourceText = formatSelectedText(result[index].value);
+      if (sourceText.isNotEmpty) {
+        _controller.text = sourceText;
+      } else {
+        _controller.text = result[index].value;
+      }
       row.value = result[index].value;
     } else {
       _controller.text = row.value;
@@ -184,7 +188,7 @@ class _TFormFieldState extends State<TFormField> {
             case TFormRowTypeMultipleSelector:
             case TFormRowTypeSelector:
               if (row.options == null || row.options!.isEmpty) return;
-              value = await Navigator.push(
+              var result = await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => TFormSelectorPage(
@@ -194,8 +198,10 @@ class _TFormFieldState extends State<TFormField> {
                         ? <TFormOptionModel>[...?row.options]
                         : row.options!.map((e) {
                             return TFormOptionModel(
-                              value: e,
-                              selected: row.value == e,
+                              value: (e is String ? e : e['value']),
+                              label: (e is String ? null : e['label']),
+                              selected:
+                                  row.value == (e is String ? e : e['value']),
                             );
                           }).toList(),
                     isMultipleSelector:
@@ -203,6 +209,7 @@ class _TFormFieldState extends State<TFormField> {
                   ),
                 ),
               );
+              value = result;
               break;
             case TFormRowTypeCustomSelector:
               if (row.onTap == null) return;
@@ -227,15 +234,34 @@ class _TFormFieldState extends State<TFormField> {
   }
 
   void referData(
-    String value,
+    String? value,
   ) {
-    if (value != null) {
+    if (value != null && value.isNotEmpty) {
       processingData(value);
-      setState(() {
-        row.value = value;
-      });
+      String r = value;
+      // 判断是否为对象 value label形式
+      String sourceText = formatSelectedText(value);
+      if (sourceText.isNotEmpty) {
+        r = sourceText;
+      }
+      row.value = value;
+      _controller.text = r;
     }
     if (row.onChanged != null) row.onChanged!(row);
+  }
+
+  String formatSelectedText(String value) {
+    try {
+      if (row.options!.every((e) => e is Map<String, dynamic>)) {
+        var result = row.options!.firstWhere(
+          (e) => e['value'] == value,
+        );
+        return result['label'];
+      }
+    } catch (err) {
+      print("转换查找options label错误: $err");
+    }
+    return '';
   }
 
   RichText _buildRichText() {
