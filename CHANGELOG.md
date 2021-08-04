@@ -1,3 +1,5 @@
+# 1.3.0
+- select 支持 options value label 格式
 # 1.2.1
 - 修改名称
 # 1.2.0
