@@ -209,7 +209,9 @@ class _TFormFieldState extends State<TFormField> {
                   ),
                 ),
               );
-              value = result;
+              if (result != null) {
+                value = result;
+              }
               break;
             case TFormRowTypeCustomSelector:
               if (row.onTap == null) return;
@@ -266,22 +268,24 @@ class _TFormFieldState extends State<TFormField> {
 
   RichText _buildRichText() {
     return RichText(
-        text: TextSpan(
-      text: row.title,
-      style:
-          !_enabled ? _titleStyle.copyWith(color: _disableColor) : _titleStyle,
-      children: [
-        TextSpan(
-          text: _require
-              ? _requireStar
-                  ? "*"
-                  : ""
-              : "",
-          style: _titleStyle.copyWith(
-              color: _enabled ? Colors.red : _disableColor),
-        )
-      ],
-    ));
+      text: TextSpan(
+        text: row.title,
+        style: !_enabled
+            ? _titleStyle.copyWith(color: _disableColor)
+            : _titleStyle,
+        children: [
+          TextSpan(
+            text: _require
+                ? _requireStar
+                    ? "*"
+                    : ""
+                : "",
+            style: _titleStyle.copyWith(
+                color: _enabled ? Colors.red : _disableColor),
+          )
+        ],
+      ),
+    );
   }
 
   Row _buildTitleText() {
