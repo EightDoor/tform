@@ -87,6 +87,7 @@ class _FormPageState extends State<FormPage> {
       body: TForm.builder(
         key: _formKey,
         sourceData: list,
+        listType: TFormListType.column,
         rows: buildFormRows(test),
         divider: Divider(
           height: 1,
@@ -102,12 +103,41 @@ List<TFormRow> buildFormRows(String test) {
       title: "姓名",
       tag: "name",
       placeholder: "请输入姓名",
-      fieldConfig: TFormFieldConfig(
-        height: 100,
-        titleStyle: TextStyle(color: Colors.red, fontSize: 20),
-        valueStyle: TextStyle(color: Colors.orange, fontSize: 30),
-        placeholderStyle: TextStyle(color: Colors.green, fontSize: 25),
-      ),
+    ),
+    TFormRow.input(
+      tag: "card",
+      enabled: false,
+      requireStar: true,
+      title: "身份证号",
+      placeholder: "请输入身份证号",
+    ),
+    TFormRow.input(
+      tag: "card",
+      enabled: false,
+      requireStar: true,
+      title: "身份证号",
+      placeholder: "请输入身份证号",
+    ),
+    TFormRow.input(
+      tag: "card",
+      enabled: false,
+      requireStar: true,
+      title: "身份证号",
+      placeholder: "请输入身份证号",
+    ),
+    TFormRow.input(
+      tag: "card",
+      enabled: false,
+      requireStar: true,
+      title: "身份证号",
+      placeholder: "请输入身份证号",
+    ),
+    TFormRow.input(
+      tag: "card",
+      enabled: false,
+      requireStar: true,
+      title: "身份证号",
+      placeholder: "请输入身份证号",
     ),
     TFormRow.input(
       tag: "card",

@@ -23,6 +23,14 @@ class TForm extends StatefulWidget {
     this.sourceData,
   }) : super(key: key);
 
+  TForm.column({
+    required Key key,
+    required this.rows,
+    this.listType = TFormListType.sliver,
+    required this.divider,
+    this.sourceData,
+  }) : super(key: key);
+
   TForm.sliver({
     required Key key,
     required this.rows,
@@ -184,10 +192,12 @@ class TFormList extends StatelessWidget {
         list = GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-          child: Column(
-            children: rows.map((e) {
-              return TFormCell(row: e);
-            }).toList(),
+          child: SingleChildScrollView(
+            child: Column(
+              children: rows.map((e) {
+                return TFormCell(row: e);
+              }).toList(),
+            ),
           ),
         );
         break;

@@ -50,7 +50,12 @@ class _TFormFieldState extends State<TFormField> {
   Color get _disableColor => row.fieldConfig?.disableColor ?? Colors.black54;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  void init() {
     var result = _logc.sourceData.value;
     final index = result.indexWhere((e) => e.tag == row.tag);
     if (index != -1) {
@@ -64,7 +69,10 @@ class _TFormFieldState extends State<TFormField> {
     } else {
       _controller.text = row.value;
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -177,6 +185,7 @@ class _TFormFieldState extends State<TFormField> {
           const TextStyle(fontSize: 15, color: CupertinoColors.placeholderText),
       readOnly: _isSelector,
       onChanged: (value) {
+        print(value);
         row.value = value;
         processingData(value);
         if (row.onChanged != null) row.onChanged!(row);
@@ -261,7 +270,7 @@ class _TFormFieldState extends State<TFormField> {
         return result['label'];
       }
     } catch (err) {
-      print("转换查找options label错误: $err");
+      // print("转换查找options label错误: $err");
     }
     return '';
   }
