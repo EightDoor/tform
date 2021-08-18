@@ -1,3 +1,5 @@
+# 1.3.2
+- fix: 点击键盘保存数据自动重置问题,初始化数据从build 移到 initState
 # 1.3.1
 - editor select error
 # 1.3.0
