@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zk_form_g/getx/getx_submit_data.dart';
+import 'package:zk_form_g/getx/getx_update_data.dart';
 import 'package:zk_form_g/models/data.dart';
 
 import 'form_cell.dart';
@@ -120,6 +121,11 @@ class TFormState extends State<TForm> {
     FocusScope.of(context).requestFocus(FocusNode());
     List errors = formValidationErrors(rows, widget.sourceData ?? []);
     return errors;
+  }
+
+  /// 更新表单某一项值
+  void updateSingData(List<ZkFormData> item) {
+    GetxUpdateData.setValue(item);
   }
 
   /// 返回表单项值

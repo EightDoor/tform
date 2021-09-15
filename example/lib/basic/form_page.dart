@@ -54,6 +54,9 @@ class _FormPageState extends State<FormPage> {
     super.initState();
   }
 
+  // 更新某一项值
+  void updateSing() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +91,25 @@ class _FormPageState extends State<FormPage> {
         key: _formKey,
         sourceData: list,
         listType: TFormListType.column,
-        rows: buildFormRows(test),
+        rows: buildFormRows(test, callName: () {
+          //
+          List<Map<String, dynamic>> list = [
+            {
+              "tag": "name",
+              "value": DateTime.now().toString(),
+            }
+          ];
+          List<ZkFormData> l = [];
+          list.forEach((e) {
+            l.add(
+              ZkFormData.fromJson(e),
+            );
+          });
+
+          (_formKey.currentState as TFormState).updateSingData(
+            l,
+          );
+        }),
         divider: Divider(
           height: 1,
         ),
@@ -97,47 +118,22 @@ class _FormPageState extends State<FormPage> {
   }
 }
 
-List<TFormRow> buildFormRows(String test) {
+List<TFormRow> buildFormRows(String test, {Function callName}) {
   return [
     TFormRow.input(
       title: "姓名",
       tag: "name",
       placeholder: "请输入姓名",
     ),
-    TFormRow.input(
-      tag: "card",
-      enabled: false,
-      requireStar: true,
-      title: "身份证号",
-      placeholder: "请输入身份证号",
-    ),
-    TFormRow.input(
-      tag: "card",
-      enabled: false,
-      requireStar: true,
-      title: "身份证号",
-      placeholder: "请输入身份证号",
-    ),
-    TFormRow.input(
-      tag: "card",
-      enabled: false,
-      requireStar: true,
-      title: "身份证号",
-      placeholder: "请输入身份证号",
-    ),
-    TFormRow.input(
-      tag: "card",
-      enabled: false,
-      requireStar: true,
-      title: "身份证号",
-      placeholder: "请输入身份证号",
-    ),
-    TFormRow.input(
-      tag: "card",
-      enabled: false,
-      requireStar: true,
-      title: "身份证号",
-      placeholder: "请输入身份证号",
+    TFormRow.customCell(
+      widget: RaisedButton(
+        onPressed: () {
+          callName();
+        },
+        child: Text(
+          "点击变更name值",
+        ),
+      ),
     ),
     TFormRow.input(
       tag: "card",

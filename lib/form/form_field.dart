@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pickers/time_picker/model/date_mode.dart';
 import 'package:get/get.dart';
 import 'package:zk_form_g/getx/getx_submit_data.dart';
+import 'package:zk_form_g/getx/getx_update_data.dart';
+import 'package:zk_form_g/models/data.dart';
 import 'package:zk_form_g/utils/show_picker_utils.dart';
 
 import 'form_row.dart';
@@ -69,6 +71,18 @@ class _TFormFieldState extends State<TFormField> {
     } else {
       _controller.text = row.value;
     }
+
+    monitorAValue();
+  }
+
+  void monitorAValue() {
+    ever(GetxUpdateData.data, (List<ZkFormData> _) {
+      _.forEach((e) {
+        if (e.tag == row.tag) {
+          _controller.text = e.value;
+        }
+      });
+    });
   }
 
   @override
