@@ -80,6 +80,7 @@ class _TFormFieldState extends State<TFormField> {
       _.forEach((e) {
         if (e.tag == row.tag) {
           _controller.text = e.value;
+          _logc.updateSingData(e.tag, e.value);
         }
       });
     });
@@ -199,7 +200,6 @@ class _TFormFieldState extends State<TFormField> {
           const TextStyle(fontSize: 15, color: CupertinoColors.placeholderText),
       readOnly: _isSelector,
       onChanged: (value) {
-        print(value);
         row.value = value;
         processingData(value);
         if (row.onChanged != null) row.onChanged!(row);

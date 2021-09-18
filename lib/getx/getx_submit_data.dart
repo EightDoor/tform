@@ -25,4 +25,17 @@ class SubmitDataController extends GetxController {
     });
     update();
   }
+
+  // 更新某一项值
+  void updateSingData(String tag, String val) {
+    List<ZkFormData> result = RxList<ZkFormData>([]);
+    result = sourceData.map((e) {
+      if(tag == e.tag) {
+        e.value = val;
+      }
+      return e;
+    }).toList();
+    print(result);
+    sourceData = result.obs;
+  }
 }
