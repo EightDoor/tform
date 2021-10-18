@@ -22,9 +22,10 @@ class TFormSelectorPage extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
-        toolbarTextStyle: TextStyle(
+        titleTextStyle: TextStyle(
           color: Colors.black,
         ),
+        backgroundColor: Colors.white,
         title: Text(title),
         actions: [
           isMultipleSelector
