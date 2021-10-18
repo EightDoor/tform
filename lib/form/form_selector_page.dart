@@ -16,6 +16,15 @@ class TFormSelectorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actionsIconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        toolbarTextStyle: TextStyle(
+          color: Colors.black,
+        ),
         title: Text(title),
         actions: [
           isMultipleSelector
