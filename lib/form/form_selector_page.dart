@@ -17,13 +17,14 @@ class TFormSelectorPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actionsIconTheme: IconThemeData(
-          color: Colors.white,
+          color: Colors.black,
         ),
         iconTheme: IconThemeData(
-          color: Colors.white,
+          color: Colors.black,
         ),
         titleTextStyle: TextStyle(
           color: Colors.black,
+          fontSize: 20,
         ),
         backgroundColor: Colors.white,
         title: Text(title),
