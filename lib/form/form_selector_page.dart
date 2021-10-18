@@ -19,6 +19,9 @@ class TFormSelectorPage extends StatelessWidget {
         actionsIconTheme: IconThemeData(
           color: Colors.black,
         ),
+        toolbarTextStyle: TextStyle(
+          color: Colors.black,
+        ),
         iconTheme: IconThemeData(
           color: Colors.black,
         ),
