@@ -36,7 +36,7 @@ class TFormSelectorPage extends StatelessWidget {
               ? TextButton(
                   child: Text(
                     "完成",
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(color: Colors.black, fontSize: 16),
                   ),
                   onPressed: () {
                     String values = options
