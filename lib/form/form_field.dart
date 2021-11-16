@@ -153,9 +153,9 @@ class _TFormFieldState extends State<TFormField> {
   }
 
   // 处理数据源
-  void processingData(
-    String value,
-  ) {
+  void processingData(String value) {
+    print(row.tag);
+    print(value);
     // 替换对应数据集
     if (row.tag != null) {
       var list = _logc.list.value;
@@ -173,9 +173,25 @@ class _TFormFieldState extends State<TFormField> {
           "value": value,
         });
       }
+
       _logc.setData(
         list,
       );
+
+      var data = _logc.sourceData.value;
+      final indexD = data.indexWhere((e) => e.tag == row.tag);
+      if (indexD != -1) {
+        data[indexD] = ZkFormData.fromJson({
+          "tag": row.tag,
+          "value": value,
+        });
+        _logc.setSourceData(data);
+      } else {
+        data.add(ZkFormData.fromJson({
+          "tag": row.tag,
+          "value": value,
+        }));
+      }
     }
   }
 
